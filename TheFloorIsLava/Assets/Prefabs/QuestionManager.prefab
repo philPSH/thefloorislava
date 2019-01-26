@@ -1,0 +1,269 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1248343049568980}
+  m_IsPrefabParent: 1
+--- !u!1 &1005169274341464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224305356706142462}
+  m_Layer: 5
+  m_Name: DadText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1035069340914138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224600246497230202}
+  m_Layer: 5
+  m_Name: ChildTextDad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1248343049568980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224710534733215346}
+  - component: {fileID: 114181473030166086}
+  m_Layer: 5
+  m_Name: QuestionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1391031930484130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224437422589290538}
+  m_Layer: 5
+  m_Name: MumText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1831150873390616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224989868919699690}
+  m_Layer: 5
+  m_Name: ChildTextMum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &114181473030166086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1248343049568980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67106752b816e243b4e4ad8c9563a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  talkingTo: 0
+  questions:
+  - question: Why do stars shine?
+    dadAnswer: Because someone left his lights on
+    mumAnswer: Because god cleans his room
+  - question: Why is the sky blue?
+    dadAnswer: It's depressed
+    mumAnswer: Because the clouds scrub out the other colours
+  - question: What's 2 plus 3?
+    dadAnswer: What am I, a calculator?
+    mumAnswer: The amount of headaches I get in a day
+  - question: Where's Africa?
+    dadAnswer: NEXT TO AMERICA
+    mumAnswer: NEXT TO EUROPE
+  - question: Where do thoughts come from?
+    dadAnswer: Dark places
+    mumAnswer: Stupid children
+  - question: Why do I have two eyes if I only see one thing?
+    dadAnswer: Everyone is born with one eye blind
+    mumAnswer: So you look even
+  - question: How high do I have to jump before I don't come back down?
+    dadAnswer: If you find out let me know
+    mumAnswer: About 10
+  - question: When's my first adultday?
+    dadAnswer: Hopefully soon
+    mumAnswer: If only it was like that
+  - question: Where do babies come from?
+    dadAnswer: Regret
+    mumAnswer: Mistakes
+  - question: What is light made of?
+    dadAnswer: Dead rainbows
+    mumAnswer: Particules and adams
+  - question: Why are old people so wrinkly?
+    dadAnswer: They don't iron themselves
+    mumAnswer: They spent too long in the bath
+  - question: You're old!
+    dadAnswer: That's not even a question...
+    mumAnswer: You're young!
+  - question: Why does rain fall down?
+    dadAnswer: Otherwise it would go up your nose
+    mumAnswer: Because the clouds are crying
+  - question: What did you want to be when you grow up?
+    dadAnswer: Childless
+    mumAnswer: A drumkit
+  - question: Where does wind come from?
+    dadAnswer: Trees sneezing
+    mumAnswer: The Netherlands
+  - question: What keeps the sky up?
+    dadAnswer: Gravity
+    mumAnswer: The trees
+  - question: Why doesn't the moon fall down?
+    dadAnswer: It's pinned in place
+    mumAnswer: It is the earth is just falling faster
+  - question: Why doesn't the sun get tired?
+    dadAnswer: Because it's constantly light
+    mumAnswer: It does that's when the moon comes
+  childTextSpawnDad: {fileID: 224600246497230202}
+  childTextSpawnMum: {fileID: 224989868919699690}
+  mumTextSpawn: {fileID: 224437422589290538}
+  dadTextSpawn: {fileID: 224305356706142462}
+  textBoxPrefabChild: {fileID: 1485966794948306, guid: 12205e64444769e4783638731bb4ed09,
+    type: 2}
+  textBoxPrefabAdult: {fileID: 1059350425464822, guid: d7b3dc849e00c1c4694045144618301b,
+    type: 2}
+  questionCooldown: 1.7
+  timeTillParentResponse: 1
+  textBubbleOffset: 0
+  dadFont: {fileID: 12800000, guid: 23190ce9cb419f84ea355369735e5448, type: 3}
+  mumFont: {fileID: 12800000, guid: 068b71ac208f58e4b80eef462f11b91e, type: 3}
+  angryFont: {fileID: 12800000, guid: b46b2910e8cb54b4ea7285cadca031f5, type: 3}
+  childFont: {fileID: 12800000, guid: 866da2ee8c7d8f04c80f06b618dc7527, type: 3}
+  dadYell: I DON'T KNOW GO ASK YOUR MOTHER
+  mumYell: I DON'T KNOW GO ASK YOUR FATHER
+  exhaustionMinAmount: 3
+  exhaustionMaxAmount: 6
+--- !u!224 &224305356706142462
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005169274341464}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224710534733215346}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 289, y: 140}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224437422589290538
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391031930484130}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224710534733215346}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -236, y: 140}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224600246497230202
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035069340914138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224710534733215346}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -236, y: 201}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224710534733215346
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1248343049568980}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224600246497230202}
+  - {fileID: 224305356706142462}
+  - {fileID: 224437422589290538}
+  - {fileID: 224989868919699690}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37, y: -145.6}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224989868919699690
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831150873390616}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224710534733215346}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 288, y: 201}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
