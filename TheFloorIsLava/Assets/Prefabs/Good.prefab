@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4675259040634988}
   - component: {fileID: 114017824331565026}
   m_Layer: 0
-  m_Name: Column
+  m_Name: Good
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1912265996567058, guid: 554d55d2c10d4ab40b7dc4d0d49df172, type: 2}
+  - {fileID: 1524377570382326, guid: 3ee9f8f1ee57cd348b58c18e20ea0018, type: 2}
 --- !u!212 &212017598229861140
 SpriteRenderer:
   m_ObjectHideFlags: 1

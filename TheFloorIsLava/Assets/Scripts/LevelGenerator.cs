@@ -5,7 +5,7 @@ using UnityEngine;
 
 // This level generator class generates and returns a list of tiles based on the
 // difficulity and required length
-public class LevelGenerator 
+public class LevelGenerator : MonoBehaviour
 {
 
     // Reference to the Different base tile prefabs 
@@ -16,6 +16,15 @@ public class LevelGenerator
     // Set to true to handle the edge case at the start of the loop
     private bool good1 = true;
     private bool good2 = true;
+
+    // Column width based on 240 pixels width image
+    float columnWidth = 2.4f;
+
+    // This is for testing level generation
+    [Header("TESTING ONLY")]
+    public int testLength = 5;
+    [Range(10, 100)]
+    public int testDifficuty = 10;
 
     // This function generates a level based on the difficulty specified and updates the time/returns the time required
     // to complete the level.
@@ -32,7 +41,7 @@ public class LevelGenerator
 
         // Next based on the difficulty randomly calculate the level to generate
         // length - 2 to account for the start and finish must be safe
-        for(int i = 1; i < (length - 2); i++)
+        for(int i = 1; i < (length - 1); i++)
         {
 
             // If there are 2 bad for a good tower
@@ -62,6 +71,12 @@ public class LevelGenerator
 
         // Add a good for the end
         generatedLevel.Add(GameObject.Instantiate(goodTile));
+
+        // For all the level parts place them 
+        for (int i = 0; i < generatedLevel.Count; i++)
+        {
+            generatedLevel[i].transform.position = transform.position + new Vector3(i * columnWidth, 0.0f, 0.0f);
+        }
 
         // Return the completed level
         return generatedLevel;
