@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UnityStandardAssets._2D
+namespace UnityStandardAssets
 {
     public class PlatformerCharacter2D : MonoBehaviour
     {
@@ -14,16 +14,18 @@ namespace UnityStandardAssets._2D
         private float horizontalFriction = 0.7f;       // amount of horizontal friction applied to player's velocity
         private float verticalFriction = 0.75f;        // amount of vertical friction applied to player's velocity
         private float jumpSpeed = 20f;                 // amount of speed added to vertical velocity when the player jumps
-        private float airSpeed = 0.45f;                // amount of speed added to horizontal velocity when in the air
+        private float doubleJumpSpeed = 20f;
+        private float airSpeed = 0.35f;                // amount of speed added to horizontal velocity when in the air
         private float velocityScalar = 0.01f;          // scalar value used to diminish the final velocity
 
         // #1 /1/15/0.75/0.5/20/0.3/0.01
         // #2 /1/20/0.5/0.5/20/0.3/0.01
-        // #3 /1.1/25/0.7/0.75/20/0.45/0.01
+        // #3 /1.1/25/0.7/0.75/20/0.35/0.01
 
+        private bool doubleJump;                        // indicates whether or not a double jump has occured
         private Vector2 playerVelocity;                 // the player's velocity
         private Transform groundCheck;                  // position marking where to check if the player is grounded
-        const float groundedRadius = .2f;               // radius of the overlap circle to determine if grounded
+        const float groundedRadius = 0.1f;               // radius of the overlap circle to determine if grounded
         private bool grounded;                          // whether or not the player is grounded
         private Animator anim;                          // reference to the player's animator component
         private bool facingRight = true;                // for determining which way the player is currently facing
@@ -44,6 +46,7 @@ namespace UnityStandardAssets._2D
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
             Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
@@ -92,12 +95,22 @@ namespace UnityStandardAssets._2D
 
         private void ApplyJump(bool jump)
         {
+            if(grounded)
+            {
+                doubleJump = false;
+            }
+
             // only apply jump if player is grouned and jump has been pressed
             if (grounded && jump)
             {
                 grounded = false;
                 anim.SetBool("Ground", false);
-                playerVelocity.y += jumpSpeed;
+                playerVelocity.y = jumpSpeed;
+            }
+            else if(!grounded && jump && !doubleJump)
+            {
+                doubleJump = true;
+                playerVelocity.y = doubleJumpSpeed;
             }
         }
 
@@ -143,6 +156,16 @@ namespace UnityStandardAssets._2D
                 facingRight = !facingRight;
                 spriteRenderer.flipX = !facingRight;
             }
+        }
+
+        public void SetVerticalVelocity(float velocity)
+        {
+            playerVelocity.y = velocity;
+        }
+
+        public void SetHorizontalVelocity(float velocity)
+        {
+            playerVelocity.x = velocity;
         }
     }
 }
