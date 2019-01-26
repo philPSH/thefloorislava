@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-    private Vector3 startPosition;
     private Vector3 endPosition;
     private float fallDistance = 20f;
     private float fallSpeed = 1f;
@@ -14,11 +13,11 @@ public class FallingPlatform : MonoBehaviour
     private float velocityScalar = 0.01f;
     private bool falling = false;
 
-	// Use this for initialization
-	private void Awake ()
+
+    // Use this for initialization
+    private void Awake ()
     {
-        startPosition = transform.position;
-        endPosition = new Vector3(startPosition.x, startPosition.y - fallDistance, startPosition.z);
+        endPosition = new Vector3(0, -fallDistance, 0);
 	}
 	
 	// Update is called once per frame
@@ -35,17 +34,17 @@ public class FallingPlatform : MonoBehaviour
             else
             {
                 // if the pltform has not yet reached terminal position
-                if (transform.position.y > endPosition.y)
+                if (transform.localPosition.y > endPosition.y)
                 {
                     // increase velocity and apply effect
                     fallVelocity += fallSpeed;
-                    transform.position = new Vector3(transform.position.x, (transform.position.y - (fallVelocity * velocityScalar)), transform.position.z);
+                    transform.localPosition = new Vector3(0, (transform.localPosition.y - (fallVelocity * velocityScalar)), 0);
                 }
             }
         }
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // on collision trigger falling
         falling = true;
