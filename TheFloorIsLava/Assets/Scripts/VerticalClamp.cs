@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class VerticalClamp : MonoBehaviour {
 
-    private float upperLimit = 1.8f;
-    private float lowerLimit = -2f;
+    private float upperLimit = 1.75f;
+    private float lowerLimit = -1.75f;
 
 	// Update is called once per frame
 	void Update ()
