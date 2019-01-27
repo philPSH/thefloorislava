@@ -10,9 +10,11 @@ namespace UnityStandardAssets._2D
         private BoxCollider2D boxCollider = null;
         private MeshRenderer meshRenderer = null;
         private bool state = true;
-        private float elapsedTime = 0f;
+        private float boostSpeed = 20f;
+        private float elapsedSwitchTime = 0f;
         private float switchTime = 1f;
-        private float boostSpeed = 30f;
+        private float minSwitchTime = 0.5f;
+        private float maxSwitchTime = 1.2f;
 
         private void Awake()
         {
@@ -23,14 +25,17 @@ namespace UnityStandardAssets._2D
         // Update is called once per frame
         void Update()
         {
+            elapsedSwitchTime += Time.deltaTime;
+
             // switch between on or off every 'switchTime' seconds
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime > switchTime)
+            if (elapsedSwitchTime > switchTime)
             {
-                elapsedTime = 0;
+                elapsedSwitchTime = 0;
+                switchTime = Random.Range(minSwitchTime, maxSwitchTime);
                 Switch();
             }
         }
+
         private void Switch()
         {
             // invert current state

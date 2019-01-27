@@ -13,14 +13,11 @@ public class FallingPlatform : MonoBehaviour
     private float velocityScalar = 0.01f;
     private bool falling = false;
 
-
-    // Use this for initialization
     private void Awake ()
     {
         endPosition = new Vector3(0, -fallDistance, 0);
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
         // if the platform should be falling
@@ -44,9 +41,10 @@ public class FallingPlatform : MonoBehaviour
         }
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // on collision trigger falling
         falling = true;
+        Debug.Log("Collision");
     }
 }

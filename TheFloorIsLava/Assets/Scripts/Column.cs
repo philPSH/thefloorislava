@@ -8,7 +8,8 @@ public class Column : MonoBehaviour
     private Transform baseMarker = null;
     private GameObject obj = null;
 
-	void Start () {
+	void Start ()
+    {
         // find marker which inidcates column's base
         baseMarker = this.gameObject.transform.GetChild(0);
 

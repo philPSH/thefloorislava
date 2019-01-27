@@ -9,18 +9,19 @@ namespace UnityStandardAssets
         [SerializeField] private LayerMask whatIsGround;    // a mask determining what is ground to the character
 
         // Non Serialized Fields
-        private float moveSpeed = 1.1f;                // amount of speed added to horizontal velocity when the player moves
-        private float maxVelocity = 25f;               // maximum amount of horizontal velocity the player can attain
-        private float horizontalFriction = 0.7f;       // amount of horizontal friction applied to player's velocity
-        private float verticalFriction = 0.75f;        // amount of vertical friction applied to player's velocity
-        private float jumpSpeed = 20f;                 // amount of speed added to vertical velocity when the player jumps
-        private float doubleJumpSpeed = 20f;
+        private float moveSpeed = 0.5f;                // amount of speed added to horizontal velocity when the player moves
+        private float maxVelocity = 10f;               // maximum amount of horizontal velocity the player can attain
+        private float horizontalFriction = 0.25f;       // amount of horizontal friction applied to player's velocity
+        private float verticalFriction = 0.5f;        // amount of vertical friction applied to player's velocity
+        private float jumpSpeed = 12f;                 // amount of speed added to vertical velocity when the player jumps
+        private float doubleJumpSpeed = 12f;
         private float airSpeed = 0.35f;                // amount of speed added to horizontal velocity when in the air
         private float velocityScalar = 0.01f;          // scalar value used to diminish the final velocity
 
         // #1 /1/15/0.75/0.5/20/0.3/0.01
         // #2 /1/20/0.5/0.5/20/0.3/0.01
         // #3 /1.1/25/0.7/0.75/20/0.35/0.01
+        // #4
 
         private bool doubleJump;                        // indicates whether or not a double jump has occured
         private Vector2 playerVelocity;                 // the player's velocity

@@ -101,7 +101,7 @@ MonoBehaviour:
   talkingTo: 0
   questions:
   - question: Why do stars shine?
-    dadAnswer: Because someone left his lights on
+    dadAnswer: Because someone left their lights on
     mumAnswer: Because god cleans his room
   - question: Why is the sky blue?
     dadAnswer: It's depressed
