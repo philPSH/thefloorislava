@@ -18,6 +18,8 @@ namespace UnityStandardAssets._2D
         private float elapsedParticleTime = 0f;
         private float particleTime = 0.7f;
 
+        public AudioSource steam_sound;
+
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider2D>();
@@ -72,6 +74,8 @@ namespace UnityStandardAssets._2D
             if (state)
             {
                 steamParticles.Play();
+                steam_sound = GetComponent<AudioSource>();
+                steam_sound.Play(0);
             }
             else
             {

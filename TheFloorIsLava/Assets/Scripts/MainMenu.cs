@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartTheGame()
     {
-        // 
         SceneManager.LoadScene("SampleScene");
         
     }

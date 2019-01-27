@@ -9,7 +9,7 @@ namespace UnityStandardAssets
         [SerializeField] private LayerMask whatIsGround;    // a mask determining what is ground to the character
 
         // Non Serialized Fields
-        private float moveSpeed = 0.5f;                // amount of speed added to horizontal velocity when the player moves
+        private float moveSpeed = 0.4f;                // amount of speed added to horizontal velocity when the player moves
         private float maxVelocity = 10f;               // maximum amount of horizontal velocity the player can attain
         private float horizontalFriction = 0.25f;      // amount of horizontal friction applied to player's velocity
         private float verticalFriction = 0.5f;         // amount of vertical friction applied to player's velocity
@@ -31,6 +31,10 @@ namespace UnityStandardAssets
         const float groundedRadius = 0.1f;              // radius of the overlap circle to determine if grounded
         private bool grounded;                          // whether or not the player is grounded
         private bool facingRight = true;                // for determining which way the player is currently facing
+
+
+        public AudioSource jump_sound;
+
 
         private void Awake()
         {
@@ -106,11 +110,15 @@ namespace UnityStandardAssets
                 grounded = false;
                 anim.SetBool("Grounded", false);
                 playerVelocity.y = jumpSpeed;
+                jump_sound = GetComponent<AudioSource>();
+                jump_sound.Play(0);                
             }
             else if(!grounded && jump && !doubleJump)
             {
                 doubleJump = true;
                 playerVelocity.y = doubleJumpSpeed;
+                jump_sound = GetComponent<AudioSource>();
+                jump_sound.Play(0);
             }
         }
 
