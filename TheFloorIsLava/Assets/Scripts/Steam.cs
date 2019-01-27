@@ -8,18 +8,20 @@ namespace UnityStandardAssets._2D
     {
         private HandleInfluences handleInfluences = null;
         private BoxCollider2D boxCollider = null;
-        private MeshRenderer meshRenderer = null;
+        private ParticleSystem steamParticles = null;
         private bool state = true;
         private float boostSpeed = 20f;
         private float elapsedSwitchTime = 0f;
         private float switchTime = 1f;
-        private float minSwitchTime = 0.5f;
-        private float maxSwitchTime = 1.2f;
+        private float minSwitchTime = 2f;
+        private float maxSwitchTime = 3f;
+        private float elapsedParticleTime = 0f;
+        private float particleTime = 0.5f;
 
         private void Awake()
         {
             boxCollider = GetComponent<BoxCollider2D>();
-            meshRenderer = GetComponent<MeshRenderer>();
+            steamParticles = gameObject.GetComponentInChildren<ParticleSystem>();
         }
 
         // Update is called once per frame
@@ -34,23 +36,46 @@ namespace UnityStandardAssets._2D
                 switchTime = Random.Range(minSwitchTime, maxSwitchTime);
                 Switch();
             }
+
+            if(state)
+            {
+                // timer to allow particles to rise/disperese before enabling or diabling the trigger box
+                if(elapsedParticleTime > particleTime)
+                {
+                    boxCollider.enabled = true;
+                }
+                else
+                {
+                    elapsedParticleTime += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if(elapsedParticleTime > particleTime)
+                {
+                    boxCollider.enabled = false;
+                }
+                else
+                {
+                    elapsedParticleTime += Time.deltaTime;
+                }
+            }
         }
 
         private void Switch()
         {
             // invert current state
             state = !state;
+            elapsedParticleTime = 0;
 
-            // activate/inactive components depending on state
+            // activate/inactive particle system depending on state
             if (state)
             {
-                boxCollider.enabled = true;
-                meshRenderer.enabled = true;
+                steamParticles.Play();
             }
             else
             {
-                boxCollider.enabled = false;
-                meshRenderer.enabled = false;
+                steamParticles.Stop();
             }
         }
 

@@ -21,9 +21,10 @@ public class LevelGenerator : MonoBehaviour
     private bool secondLastColumnIsGood = true;
 
     // Column width based on 240 pixels width image
-    float columnWidth = 3.2f;
-    int particleYPosition = -3;
-    int particleFrequency = 3;
+    private float columnWidth = 3.2f;
+    private float particleYPosition = -3f;
+    private float particleZPosition = -0.5f;
+    private float particleFrequency = 3f;
 
     // This is for testing level generation
     [Header("TESTING ONLY")]
@@ -48,11 +49,11 @@ public class LevelGenerator : MonoBehaviour
 
         // add ember particles at the starting column
         particleList.Add(GameObject.Instantiate(emberParticles, level));
-        particleList.ElementAt<GameObject>(0).transform.localPosition = new Vector3(0, particleYPosition, 0);
+        particleList.ElementAt<GameObject>(0).transform.localPosition = new Vector3(0, particleYPosition, particleZPosition);
 
         // add ash particles at the starting column
         particleList.Add(GameObject.Instantiate(ashParticles, level));
-        particleList.ElementAt<GameObject>(1).transform.localPosition = new Vector3(0, particleYPosition, 0);
+        particleList.ElementAt<GameObject>(1).transform.localPosition = new Vector3(0, particleYPosition, particleZPosition);
 
         // length - 2 to account for the first and last columns
         for (int i = 1; i < (length - 1); i++)
@@ -64,11 +65,11 @@ public class LevelGenerator : MonoBehaviour
             {
                 // add ember particles
                 particleList.Add(GameObject.Instantiate(emberParticles, level));
-                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, 0);
+                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, particleZPosition);
 
                 // add ash particles
                 particleList.Add(GameObject.Instantiate(ashParticles, level));
-                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, 0);
+                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, particleZPosition);
             }
 
             // if the last two columns were bad, add a good column
