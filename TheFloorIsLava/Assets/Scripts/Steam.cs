@@ -27,7 +27,7 @@ namespace UnityStandardAssets._2D
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             elapsedSwitchTime += Time.deltaTime;
 

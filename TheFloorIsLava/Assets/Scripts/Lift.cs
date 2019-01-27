@@ -19,7 +19,7 @@ public class Lift : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void FixedUpdate ()
     {
         time += frequency * Time.deltaTime;
         transform.localPosition = new Vector3(0, Mathf.Abs(amplitude * Mathf.Cos(time)), 0);

@@ -20,7 +20,7 @@ namespace UnityStandardAssets._2D
 
         //public AudioSource fireball_sound;
 
-        void Update()
+        void FixedUpdate()
         {
             ApplyFriction();
 

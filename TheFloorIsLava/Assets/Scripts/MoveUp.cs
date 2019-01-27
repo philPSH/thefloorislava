@@ -11,7 +11,7 @@ public class MoveUp : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         rect.position = new Vector3(rect.position.x, rect.position.y + speed, rect.position.z);
 	}
 }

@@ -129,6 +129,7 @@ public class QuestionManager : MonoBehaviour {
         yield return new WaitForSeconds(timeTillParentResponse);
         GameObject adultText = GameObject.Instantiate(textBoxPrefabAdult, guardianTextSpawn);
         AdjustSpeechBubbles(previousGuardianTexts, adultText.GetComponent<RectTransform>());
+        
         adultText.GetComponentInChildren<Text>().text = guardian == Guardians.DAD ? question.dadAnswer : question.mumAnswer;
         adultText.GetComponentInChildren<Text>().font = guardian == Guardians.DAD ? dadFont : mumFont;
     }

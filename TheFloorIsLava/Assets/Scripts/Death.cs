@@ -9,7 +9,7 @@ public class Death : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 }

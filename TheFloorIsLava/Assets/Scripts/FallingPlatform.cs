@@ -18,7 +18,7 @@ public class FallingPlatform : MonoBehaviour
         endPosition = new Vector3(0, -fallDistance, 0);
 	}
 	
-	void Update ()
+	void FixedUpdate ()
     {
         // if the platform should be falling
 		if(falling)
