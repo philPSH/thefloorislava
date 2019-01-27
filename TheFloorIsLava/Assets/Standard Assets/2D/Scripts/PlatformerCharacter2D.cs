@@ -9,7 +9,7 @@ namespace UnityStandardAssets
         [SerializeField] private LayerMask whatIsGround;    // a mask determining what is ground to the character
 
         // Non Serialized Fields
-        private float moveSpeed = 0.5f;                // amount of speed added to horizontal velocity when the player moves
+        private float moveSpeed = 0.4f;                // amount of speed added to horizontal velocity when the player moves
         private float maxVelocity = 10f;               // maximum amount of horizontal velocity the player can attain
         private float horizontalFriction = 0.25f;      // amount of horizontal friction applied to player's velocity
         private float verticalFriction = 0.5f;         // amount of vertical friction applied to player's velocity
@@ -23,19 +23,25 @@ namespace UnityStandardAssets
         // #3 /1.1/25/0.7/0.75/20/0.35/0.01
         // #4
 
+        private Animator anim;                          // reference to the player's animator component
+        private Transform model;                        // reference to player's model child
         private bool doubleJump;                        // indicates whether or not a double jump has occured
         private Vector2 playerVelocity;                 // the player's velocity
         private Transform groundCheck;                  // position marking where to check if the player is grounded
         const float groundedRadius = 0.1f;              // radius of the overlap circle to determine if grounded
         private bool grounded;                          // whether or not the player is grounded
-        private Animator anim;                          // reference to the player's animator component
         private bool facingRight = true;                // for determining which way the player is currently facing
+
+
+        public AudioSource jump_sound;
+
 
         private void Awake()
         {
             // Setting up references.
             groundCheck = transform.Find("GroundCheck");
-            anim = transform.Find("Model").GetComponent<Animator>();
+            model = transform.Find("Model");
+            anim = model.GetComponent<Animator>();
         }
 
         private void FixedUpdate()
@@ -104,11 +110,15 @@ namespace UnityStandardAssets
                 grounded = false;
                 anim.SetBool("Grounded", false);
                 playerVelocity.y = jumpSpeed;
+                jump_sound = GetComponent<AudioSource>();
+                jump_sound.Play(0);                
             }
             else if(!grounded && jump && !doubleJump)
             {
                 doubleJump = true;
                 playerVelocity.y = doubleJumpSpeed;
+                jump_sound = GetComponent<AudioSource>();
+                jump_sound.Play(0);
             }
         }
 
@@ -152,7 +162,8 @@ namespace UnityStandardAssets
             if(move > 0 && !facingRight || move < 0 && facingRight)
             {
                 facingRight = !facingRight;
-                //spriteRenderer.flipX = !facingRight;
+                // reflection in the z plane as 3d player models face forward in the z plane
+                model.localScale = new Vector3(model.localScale.x, model.localScale.y, -model.localScale.z);
             }
         }
 

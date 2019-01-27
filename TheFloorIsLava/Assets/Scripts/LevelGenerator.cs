@@ -27,7 +27,8 @@ public class LevelGenerator : MonoBehaviour
     private bool secondLastColumnIsGood = true;
 
     // Column width based on 240 pixels width image
-    private float columnWidth = 2.75f;
+    private float columnWidth = 3.2f;
+
     private float particleYPosition = -5f;
     private float particleZPosition = -0.5f;
     private float particleFrequency = 3f;
@@ -46,7 +47,7 @@ public class LevelGenerator : MonoBehaviour
     // difficulty - value between 0 and 100 (0% and 100%) for the chance of spawning bad columns
     private void Start()
     {
-        GenerateLevel(4);
+        GenerateLevel(10);
     }
 
     public void GenerateLevel(int length, int difficulty = 10)

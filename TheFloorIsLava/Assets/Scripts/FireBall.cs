@@ -18,6 +18,8 @@ namespace UnityStandardAssets._2D
         private float boostSpeed = 10f;
         private float baseHeight = -5f;
 
+        //public AudioSource fireball_sound;
+
         void Update()
         {
             ApplyFriction();
@@ -35,7 +37,7 @@ namespace UnityStandardAssets._2D
                 elapsedTime += Time.deltaTime;
                 jumpVelocity = 0;
 
-                if(elapsedTime > restTime)
+                if (elapsedTime > restTime)
                 {
                     elapsedTime = 0;
                     restTime = Random.Range(restMin, restMax);
@@ -48,12 +50,14 @@ namespace UnityStandardAssets._2D
         {
             // always apply verticla friction
             jumpVelocity -= verticalFriction;
+            
         }
 
         private void ApplyTransformation()
         {
             // apply transformation
             transform.localPosition = new Vector3(0, transform.localPosition.y + (jumpVelocity * velocityScalar), 0);
+            
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
@@ -65,6 +69,7 @@ namespace UnityStandardAssets._2D
             // get reference to player's public script and apply boost 
             handleInfluences = collider.gameObject.GetComponent<HandleInfluences>();
             handleInfluences.FireBallBoost(new Vector2(direction.x*boostSpeed, direction.y*boostSpeed));
+          
         }
     }
 }
