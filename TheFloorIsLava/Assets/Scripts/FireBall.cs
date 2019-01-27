@@ -8,26 +8,39 @@ namespace UnityStandardAssets._2D
     {
         private HandleInfluences handleInfluences = null;
         private float jumpVelocity = 0f;
-        private float jumpSpeed = 40f;
-        private float verticalFriction = 0.75f;
+        private float jumpSpeed = 34f;
+        private float verticalFriction = 0.6f;
         private float velocityScalar = 0.01f;
+        private float restMin = 0f;
+        private float restMax = 2.5f;
+        private float restTime = 2f;
+        private float elapsedTime = 0f;
+        private float boostSpeed = 10f;
+        private float baseHeight = -5f;
 
-        // Update is called once per frame
         void Update()
         {
-            ApplyJump();
-
             ApplyFriction();
+
+            ApplyJump();
 
             ApplyTransformation();
         }
 
         private void ApplyJump()
         {
-            // if the fireball has fallen below the base marker then apply jump
-            if (transform.localPosition.y < 0.0f)
+            // if the fireball has fallen below the base marker then time rest and apply jump
+            if (transform.localPosition.y < baseHeight)
             {
-                jumpVelocity = jumpSpeed;
+                elapsedTime += Time.deltaTime;
+                jumpVelocity = 0;
+
+                if(elapsedTime > restTime)
+                {
+                    elapsedTime = 0;
+                    restTime = Random.Range(restMin, restMax);
+                    jumpVelocity = jumpSpeed;
+                }
             }
         }
 
@@ -43,11 +56,15 @@ namespace UnityStandardAssets._2D
             transform.localPosition = new Vector3(0, transform.localPosition.y + (jumpVelocity * velocityScalar), 0);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            // get reference to player's public script and apply boost
-            handleInfluences = collision.gameObject.GetComponent<HandleInfluences>();
-            handleInfluences.FireBallBoost(new Vector2(0, 0));
+            // find direction used to boost player away from fireball
+            Vector3 colliderPosition = collider.transform.position;
+            Vector3 direction = colliderPosition - transform.position;
+
+            // get reference to player's public script and apply boost 
+            handleInfluences = collider.gameObject.GetComponent<HandleInfluences>();
+            handleInfluences.FireBallBoost(new Vector2(direction.x*boostSpeed, direction.y*boostSpeed));
         }
     }
 }

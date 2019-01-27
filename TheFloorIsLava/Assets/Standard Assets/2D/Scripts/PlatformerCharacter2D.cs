@@ -9,34 +9,35 @@ namespace UnityStandardAssets
         [SerializeField] private LayerMask whatIsGround;    // a mask determining what is ground to the character
 
         // Non Serialized Fields
-        private float moveSpeed = 1.1f;                // amount of speed added to horizontal velocity when the player moves
-        private float maxVelocity = 25f;               // maximum amount of horizontal velocity the player can attain
-        private float horizontalFriction = 0.7f;       // amount of horizontal friction applied to player's velocity
-        private float verticalFriction = 0.75f;        // amount of vertical friction applied to player's velocity
-        private float jumpSpeed = 20f;                 // amount of speed added to vertical velocity when the player jumps
-        private float doubleJumpSpeed = 20f;
+        private float moveSpeed = 0.5f;                // amount of speed added to horizontal velocity when the player moves
+        private float maxVelocity = 10f;               // maximum amount of horizontal velocity the player can attain
+        private float horizontalFriction = 0.25f;      // amount of horizontal friction applied to player's velocity
+        private float verticalFriction = 0.5f;         // amount of vertical friction applied to player's velocity
+        private float jumpSpeed = 12f;                 // amount of speed added to vertical velocity when the player jumps
+        private float doubleJumpSpeed = 12f;           // amount of speed added to vertical velocity upon double jump
         private float airSpeed = 0.35f;                // amount of speed added to horizontal velocity when in the air
         private float velocityScalar = 0.01f;          // scalar value used to diminish the final velocity
 
         // #1 /1/15/0.75/0.5/20/0.3/0.01
         // #2 /1/20/0.5/0.5/20/0.3/0.01
         // #3 /1.1/25/0.7/0.75/20/0.35/0.01
+        // #4
 
+        private Animator anim;                          // reference to the player's animator component
+        private Transform model;                        // reference to player's model child
         private bool doubleJump;                        // indicates whether or not a double jump has occured
         private Vector2 playerVelocity;                 // the player's velocity
         private Transform groundCheck;                  // position marking where to check if the player is grounded
-        const float groundedRadius = 0.1f;               // radius of the overlap circle to determine if grounded
+        const float groundedRadius = 0.1f;              // radius of the overlap circle to determine if grounded
         private bool grounded;                          // whether or not the player is grounded
-        private Animator anim;                          // reference to the player's animator component
         private bool facingRight = true;                // for determining which way the player is currently facing
-        private SpriteRenderer spriteRenderer;          // reference to player's sprite renderer component
 
         private void Awake()
         {
             // Setting up references.
             groundCheck = transform.Find("GroundCheck");
-            anim = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            model = transform.Find("Model");
+            anim = model.GetComponent<Animator>();
         }
 
         private void FixedUpdate()
@@ -52,15 +53,14 @@ namespace UnityStandardAssets
                 if (colliders[i].gameObject != gameObject)
                     grounded = true;
             }
-            anim.SetBool("Ground", grounded);
 
-            // Set the vertical animation
-            anim.SetFloat("vSpeed", playerVelocity.y);
+            // let animator know player is grounded
+            anim.SetBool("Grounded", grounded);
         }
 
         public void Move(float move, bool jump)
         {
-            // speed animator parameter is set to the absolute value of the horizontal input
+            // let animator know at what speed the player is moving
             anim.SetFloat("Speed", Mathf.Abs(move));
 
             // if the player is moving in the direction opposite to facing, flip facing
@@ -104,7 +104,7 @@ namespace UnityStandardAssets
             if (grounded && jump)
             {
                 grounded = false;
-                anim.SetBool("Ground", false);
+                anim.SetBool("Grounded", false);
                 playerVelocity.y = jumpSpeed;
             }
             else if(!grounded && jump && !doubleJump)
@@ -154,7 +154,8 @@ namespace UnityStandardAssets
             if(move > 0 && !facingRight || move < 0 && facingRight)
             {
                 facingRight = !facingRight;
-                spriteRenderer.flipX = !facingRight;
+                // reflection in the z plane as 3d player models face forward in the z plane
+                model.localScale = new Vector3(model.localScale.x, model.localScale.y, -model.localScale.z);
             }
         }
 
