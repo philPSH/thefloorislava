@@ -7,17 +7,17 @@ public class GuardianTrigger : MonoBehaviour {
     public QuestionManager.Guardians guardian;
 	// Use this for initialization
 	void Start () {
-		
+        questionManager = GameObject.Find("QuestionManager").GetComponent<QuestionManager>();
 	}
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             questionManager.EnteredTrigger(guardian);
         }
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player")
         {

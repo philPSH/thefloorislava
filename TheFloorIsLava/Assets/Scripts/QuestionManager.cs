@@ -19,7 +19,7 @@ public class QuestionManager : MonoBehaviour {
         public string dadAnswer;
         public string mumAnswer;
     }
-
+    public LevelGenerator levelGen;
     public Guardians talkingTo;
 
     public Question[] questions;
@@ -53,7 +53,9 @@ public class QuestionManager : MonoBehaviour {
     public int exhaustionMaxAmount;
 
     private int currentExhaustion = 5;
-    private bool canAskQuestions;
+    private int totalExhaustion;
+    public bool canAskQuestions;
+    private bool finishedAskingQuestions = false;
 
 	// Use this for initialization
 	void Start ()
@@ -65,7 +67,7 @@ public class QuestionManager : MonoBehaviour {
 	void Update () {
         timeSinceLastQuestion += Time.deltaTime;
 
-        if (canAskQuestions && ((Input.GetKeyDown(KeyCode.Y) || Input.GetButtonDown("Why")) && timeSinceLastQuestion >= questionCooldown))
+        if (canAskQuestions && !finishedAskingQuestions && ((Input.GetKeyDown(KeyCode.Y) || Input.GetButtonDown("Why")) && timeSinceLastQuestion >= questionCooldown))
         {
             timeSinceLastQuestion = 0;
             switch (talkingTo)
@@ -108,6 +110,8 @@ public class QuestionManager : MonoBehaviour {
         AdjustSpeechBubbles(previousGuardianTexts, adultText.GetComponent<RectTransform>());
         adultText.GetComponentInChildren<Text>().text = guardian == Guardians.DAD ? dadYell : mumYell;
         adultText.GetComponentInChildren<Text>().font = angryFont;
+        levelGen.GenerateLevel(totalExhaustion * 3, Mathf.Clamp(totalExhaustion, 10, 100));
+        finishedAskingQuestions = true;
     }
 
     private void AdjustSpeechBubbles(List<RectTransform> bubbles, RectTransform newText)
@@ -131,9 +135,12 @@ public class QuestionManager : MonoBehaviour {
 
     public void EnteredTrigger(Guardians triggerGuardian)
     {
+        canAskQuestions = true;
         if (talkingTo == triggerGuardian) return;
         currentExhaustion = UnityEngine.Random.Range(exhaustionMinAmount, exhaustionMaxAmount);
-        canAskQuestions = true;
+        totalExhaustion += currentExhaustion;
+        talkingTo = triggerGuardian;
+        finishedAskingQuestions = false;
     }
 
     public void ExitTrigger()

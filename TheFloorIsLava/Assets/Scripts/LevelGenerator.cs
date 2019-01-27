@@ -9,9 +9,15 @@ public class LevelGenerator : MonoBehaviour
     // Reference to the prefabs to instantiate
     public GameObject goodColumn;
     public GameObject badColumn;
+    public GameObject dadColumn;
+    public GameObject mumColumn;
     public GameObject emberParticles;
     public GameObject ashParticles;
 
+
+    private GameObject parentColumn;
+    private Vector3 parentColumnPosition;
+    private GameObject previousParentColumn;
     // List references
     private List<GameObject> columnList = null;
     private List<GameObject> particleList = null;
@@ -22,10 +28,11 @@ public class LevelGenerator : MonoBehaviour
 
     // Column width based on 240 pixels width image
     private float columnWidth = 2.75f;
-    private float particleYPosition = -3f;
+    private float particleYPosition = -5f;
     private float particleZPosition = -0.5f;
     private float particleFrequency = 3f;
 
+    private bool generateRight = true;
     // This is for testing level generation
     [Header("TESTING ONLY")]
     public int testLength = 5;
@@ -37,11 +44,34 @@ public class LevelGenerator : MonoBehaviour
     // length - This is the length of the level in columns
     // time - float to be updated in the function to reflect the new level
     // difficulty - value between 0 and 100 (0% and 100%) for the chance of spawning bad columns
+    private void Start()
+    {
+        GenerateLevel(4);
+    }
+
     public void GenerateLevel(int length, int difficulty = 10)
     {
+        if (previousParentColumn) Destroy(previousParentColumn);  
+        Transform level;
+        level = this.transform.GetChild(0);
+        if (columnList != null)
+        {
+            
+            transform.position = columnList[columnList.Count - 1].transform.position;
+            foreach (GameObject col in columnList)
+            {
+                Destroy(col);
+            }
+            foreach (GameObject par in particleList)
+            {
+                Destroy(par);
+            }
+        }
+        
         columnList = new List<GameObject>();
         particleList = new List<GameObject>();
-        Transform level = this.transform.GetChild(0);
+
+
         float xPosition = 0;
 
         // the first object in the list must be a good column
@@ -59,17 +89,17 @@ public class LevelGenerator : MonoBehaviour
         for (int i = 1; i < (length - 1); i++)
         {
             xPosition += columnWidth;
-
+            float newX = generateRight ? xPosition : -xPosition;
             // spawn a particle system every four columns
             if(i % particleFrequency == 0)
             {
                 // add ember particles
                 particleList.Add(GameObject.Instantiate(emberParticles, level));
-                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, particleZPosition);
+                //particleList.Last<GameObject>().transform.localPosition = new Vector3(newX, particleYPosition, particleZPosition);
 
                 // add ash particles
                 particleList.Add(GameObject.Instantiate(ashParticles, level));
-                particleList.Last<GameObject>().transform.localPosition = new Vector3(xPosition, particleYPosition, particleZPosition);
+                //particleList.Last<GameObject>().transform.localPosition = new Vector3(newX, particleYPosition, particleZPosition);
             }
 
             // if the last two columns were bad, add a good column
@@ -99,14 +129,49 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // the last column in the list must be a good column
-        xPosition += columnWidth;
         columnList.Add(GameObject.Instantiate(goodColumn, level));
 
-        // loop through list and translate each column to correct position
-        for(int i = 0; i < length; i++)
+        if (generateRight)
         {
-            columnList.ElementAt<GameObject>(i).transform.localPosition = new Vector3(columnWidth * i, 0, 0);
+            // For all the level parts place them 
+            for (int i = 0; i < columnList.Count; i++)
+            {
+                columnList[i].transform.position = transform.position + new Vector3(i * columnWidth, 0.0f, 0.0f);
+            }
+            // For all the level parts place them 
+            for (int i = 0; i < particleList.Count; i++)
+            {
+                particleList[i].transform.position = transform.position + new Vector3(i * 2 *columnWidth, particleYPosition, particleZPosition);
+            }
         }
+        else
+        {
+            // For all the level parts place them 
+            for (int i = 0; i < columnList.Count; i++)
+            {
+                columnList[i].transform.position = transform.position - new Vector3(i * columnWidth, 0.0f, 0.0f);
+            }
+            for (int i = 0; i < particleList.Count; i++)
+            {
+                particleList[i].transform.position = transform.position - new Vector3(i * 2 * columnWidth, -particleYPosition, -particleZPosition);
+            }
+
+        }
+        if (parentColumn) previousParentColumn = parentColumn;
+        if ( generateRight)
+        {
+            parentColumn = GameObject.Instantiate(dadColumn);
+            parentColumn.transform.position = transform.position + new Vector3((columnList.Count+1) * columnWidth, 0.0f, 0.0f);
+
+        }
+        else
+        {
+            parentColumn = GameObject.Instantiate(mumColumn);
+            parentColumn.transform.position = transform.position - new Vector3((columnList.Count + 1) * columnWidth, 0.0f, 0.0f);
+        }
+        parentColumnPosition = parentColumn.transform.position;
+        generateRight = !generateRight;
+
     }
 
     // Updates the good/bad status of the last two columns
