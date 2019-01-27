@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
     private bool secondLastColumnIsGood = true;
 
     // Column width based on 240 pixels width image
-    private float columnWidth = 3.2f;
+    private float columnWidth = 2.75f;
     private float particleYPosition = -3f;
     private float particleZPosition = -0.5f;
     private float particleFrequency = 3f;

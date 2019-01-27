@@ -45,6 +45,5 @@ public class FallingPlatform : MonoBehaviour
     {
         // on collision trigger falling
         falling = true;
-        Debug.Log("Collision");
     }
 }

@@ -16,7 +16,7 @@ namespace UnityStandardAssets._2D
         private float minSwitchTime = 2f;
         private float maxSwitchTime = 3f;
         private float elapsedParticleTime = 0f;
-        private float particleTime = 0.5f;
+        private float particleTime = 0.7f;
 
         private void Awake()
         {
